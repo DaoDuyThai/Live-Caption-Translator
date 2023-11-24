@@ -15,12 +15,15 @@ function translateMessage(message, callback) {
 }
 
 function getChatMessages() {
+    const translationDiv = document.querySelector('#translation');
     //clear console log
     console.clear();
-    // Get the parent div with class "iOzk7"
-    //if parent div is null, then there are no chat messages
 
+    // Get the parent div with class "iOzk7"
     const parentDiv = document.querySelector('.iOzk7');
+
+    // Store chat messages to check for duplicates
+    const existingMessages = [];
 
     // Check if parent div exists
     if (parentDiv) {
@@ -35,11 +38,19 @@ function getChatMessages() {
             // Get the chat message
             const chatMessage = message.querySelector('.iTTPOb.VbkSUe').textContent;
 
+            // Check if the message is already present
+            const isDuplicate = existingMessages.some(existingMessage => {
+                return existingMessage.speaker === speakerName && existingMessage.message === chatMessage;
+            });
+
+
             // Translate the chat message
             translateMessage(chatMessage, (translatedMessage) => {
                 // Log the results (you can do anything you want with the data)
                 console.log(`${speakerName}: ${translatedMessage}`);
+                translationDiv.append(`<span style='font-weight: bold'>${speakerName}:</span> ${translatedMessage}`);
             });
+
         });
     } else {
         console.log('No chat messages found.');

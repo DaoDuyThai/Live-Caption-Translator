@@ -11,6 +11,17 @@
     ], 
     "permissions": [
       "activeTab",
-      "storage"
-    ]
+      "storage",
+      "sidePanel",
+      "contextMenus",
+      "tabs"
+    ],
+    "side_panel": {
+      "default_path": "index.html"
+    },"background": {
+      "service_worker": "service-worker.js"
+    },
+    "action": {
+      "default_title": "Click to open panel"
+    }
   }
