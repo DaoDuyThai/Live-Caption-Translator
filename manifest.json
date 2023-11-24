@@ -1,0 +1,16 @@
+{
+    "name": "Live Caption Translator",
+    "version": "1.0",
+    "description": "A simple and easy-to-use extension that translates live captions from google meet to any language of your choice.",
+    "manifest_version": 3,
+    "content_scripts": [
+      {
+        "matches": ["*://*/*"],
+        "js": ["translator.js"]
+      }
+    ], 
+    "permissions": [
+      "activeTab",
+      "storage"
+    ]
+  }
