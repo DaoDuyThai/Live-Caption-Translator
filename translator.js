@@ -1,11 +1,27 @@
 function translateMessage(message, callback) {
     // Replace the following line with your translation logic
-    let apiUrl = `https://api.mymemory.translated.net/get?q=${message}&langpair=en-GB|ko-KR`;
+    // let apiUrl = `https://api.mymemory.translated.net/get?q=${message}&langpair=ko-KR|en-GB`;
+    // let apiUrl = `https://translated-mymemory---translation-memory.p.rapidapi.com/get?langpair=kor%7Cen&q=${message}94&mt=1&onlyprivate=0&de=a%40b.c`;
+    let apiUrl = `https://text-translator2.p.rapidapi.com/translate`;
+    const options = {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+            'X-RapidAPI-Key': 'fd482da7cbmshfa80bd7b6332a5fp1a2754jsn67456d6fca1c',
+            'X-RapidAPI-Host': 'text-translator2.p.rapidapi.com'
+        },
+        body: new URLSearchParams({
+            source_language: 'auto',
+            target_language: 'en',
+            text: message
+        })
+    };
 
-    fetch(apiUrl)
+    fetch(apiUrl, options)
         .then((res) => res.json())
         .then((data) => {
-            const translatedMessage = data.responseData.translatedText;
+            const translatedMessage = data.data.translatedText;
+            // const translatedMessage = data.matches[0].segment;
             callback(translatedMessage);
         })
         .catch(error => {
@@ -48,7 +64,7 @@ function getChatMessages() {
             translateMessage(chatMessage, (translatedMessage) => {
                 // Log the results (you can do anything you want with the data)
                 console.log(`${speakerName}: ${translatedMessage}`);
-                translationDiv.append(`<span style='font-weight: bold'>${speakerName}:</span> ${translatedMessage}`);
+                // translationDiv.append(`<span style='font-weight: bold'>${speakerName}:</span> ${translatedMessage}`);
             });
 
         });
